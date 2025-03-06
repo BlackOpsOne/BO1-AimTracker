@@ -12,6 +12,8 @@
 
 float aim_value = 0;
 
+int aim_value_address = 0x2911E24;
+
 namespace game {
 	float GetAimValue()
 	{
@@ -21,7 +23,7 @@ namespace game {
 			return 0.0f;
 		}
 
-		return utils::memory::ReadFloat(handle, 0x2911E24);
+		return utils::memory::ReadFloat(handle, aim_value_address);
 	}
 
 	void UpdateAimValue()
@@ -33,6 +35,23 @@ namespace game {
 		}
 
 		aim_value = GetAimValue();
+	}
+
+	void ResetAimValue()
+	{
+		HANDLE handle = process::GetBlackOpsProcess();
+		if (handle == NULL || handle == INVALID_HANDLE_VALUE) {
+			MessageBoxA(NULL, "The game must be open to reset the aim value.", "BO1 Aim Tracker", MB_OK | MB_ICONINFORMATION);
+			return;
+		}
+
+		if (!utils::memory::WriteFloat(handle, aim_value_address, 0.0f))
+		{
+			MessageBoxA(NULL, "Failed to reset the aim value.", "BO1 Aim Tracker", MB_OK | MB_ICONINFORMATION);
+			return;
+		}
+
+		MessageBoxA(NULL, "Successfully reset the aim value.", "BO1 Aim Tracker", MB_OK | MB_ICONINFORMATION);
 	}
 
 	std::string GetSuggestedDirection()

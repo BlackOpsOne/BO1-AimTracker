@@ -8,6 +8,8 @@ An aim value tracker for Black Ops, tells you exactly which direction to turn.
 
 - The aim tracker will tell you when you need to start turning for your aim to not get affected, which typically is at about `200,000` or `-200,000` depending which direction you turned the most. However, its completely up to you when to start turning.
 
+- You can set the aim value back to `0` by clicking the "Reset Aim Value" button.
+
 ## Why?
 If the aim value goes past a certain amount, your aim will become locked and you will be unable to turn. This is to prevent that from happening.
 
